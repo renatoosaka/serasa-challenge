@@ -1,0 +1,17 @@
+{
+  "name": "serasa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Renato Hideki Osaka <renato.osaka@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "backend/**",
+      "frontend/**"
+    ]
+  }
+}
