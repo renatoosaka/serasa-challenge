@@ -1,12 +1,29 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @ApiOkResponse({
+    description: 'Main endpoint',
+    schema: {
+      type: 'object',
+      properties: {
+        message: {
+          type: 'string',
+          example: 'Serasa Challenge',
+        },
+        timestamp: {
+          type: 'number',
+          example: 1725560729996,
+        },
+      },
+    },
+  })
+  getHello() {
+    return {
+      message: 'Serasa Challenge',
+      timestamp: new Date().getTime(),
+    };
   }
 }
