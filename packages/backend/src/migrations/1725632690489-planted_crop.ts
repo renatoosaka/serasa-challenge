@@ -11,6 +11,7 @@ export class PlantedCrop1725632690489 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
             name: 'name',

@@ -11,6 +11,7 @@ export class Producer1725632247486 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'gen_random_uuid()',
           },
           {
             name: 'document',
