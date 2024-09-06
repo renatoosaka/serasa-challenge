@@ -1,0 +1,53 @@
+import { PlantedCrops } from '../../planted-crops/entities/planted-crops.entity';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+
+@Entity('producers')
+export class Producer extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ nullable: false, unique: true, length: 32 })
+  document: string;
+
+  @Column({ nullable: false })
+  name: string;
+
+  @Column({ nullable: false })
+  farm: string;
+
+  @Column({ nullable: false })
+  city: string;
+
+  @Column({ nullable: false })
+  state: string;
+
+  @Column({ nullable: false })
+  area: number;
+
+  @Column({ nullable: false })
+  farmableArea: number;
+
+  @Column({ nullable: false })
+  vegetationArea: number;
+
+  @ManyToMany(() => PlantedCrops)
+  @JoinTable({
+    name: 'planted_crops_producers',
+  })
+  planted_crops: PlantedCrops[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+}
