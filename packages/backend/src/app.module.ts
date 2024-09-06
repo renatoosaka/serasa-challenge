@@ -20,8 +20,11 @@ import { PlantedCropsModule } from './planted-crops/planted-crops.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) =>
-        configService.get('typeorm'),
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get('typeorm'),
+        migrations: [],
+        migrationsRun: false,
+      }),
     }),
     PlantedCropsModule,
     ProducerModule,
