@@ -3,13 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { ProducerModule } from './producer/producer.module';
 import { configFactory, configValidation } from './config/configuration';
+import { typeorm } from './config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PlantedCropsModule } from './planted-crops/planted-crops.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [configFactory],
+      load: [configFactory, typeorm],
       validationSchema: configValidation,
       envFilePath: !process.env.NODE_ENV
         ? '.env'
@@ -18,19 +20,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        return {
-          type: 'postgres',
-          host: configService.get<string>('DATABASE_HOST'),
-          port: configService.get<number>('DATABASE_POST'),
-          username: configService.get<string>('DATABASE_USER'),
-          password: configService.get<string>('DATABASE_PASS'),
-          database: configService.get<string>('DATABASE_NAME'),
-          entities: ['dist/**/*.entity{.ts,.js}'],
-          synchronize: configService.get<boolean>('DATABASE_SYNC'),
-        };
-      },
+      useFactory: (configService: ConfigService) =>
+        configService.get('typeorm'),
     }),
+    PlantedCropsModule,
     ProducerModule,
   ],
   controllers: [AppController],
