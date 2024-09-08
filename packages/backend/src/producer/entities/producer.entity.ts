@@ -42,6 +42,14 @@ export class Producer extends BaseEntity {
   @ManyToMany(() => PlantedCrops)
   @JoinTable({
     name: 'planted_crops_producers',
+    joinColumn: {
+      name: 'producer_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'planted_crop_id',
+      referencedColumnName: 'id',
+    },
   })
   planted_crops: PlantedCrops[];
 
