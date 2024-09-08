@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PlantedCrops } from './entities/planted-crops.entity';
 import { UpdatePlantedCropRequestDTO } from './dtos/request/update.dto';
@@ -61,6 +61,16 @@ export class PlantedCropsService {
     if (!data) return null;
 
     await this.plantedCropRepository.delete(id);
+
+    return data;
+  }
+
+  async fromIds(ids: Array<string>): Promise<Array<PlantedCrops>> {
+    const data = await this.plantedCropRepository.find({
+      where: {
+        id: In(ids),
+      },
+    });
 
     return data;
   }

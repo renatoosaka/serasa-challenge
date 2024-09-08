@@ -76,7 +76,7 @@ export class PlantedCropsController {
       type: 'object',
       properties: {
         statusCode: { type: 'number', example: 500 },
-        message: { type: 'string', example: 'Not found' },
+        message: { type: 'string', example: 'Internal Server Error' },
       },
     },
   })
@@ -111,7 +111,7 @@ export class PlantedCropsController {
       type: 'object',
       properties: {
         statusCode: { type: 'number', example: 500 },
-        message: { type: 'string', example: 'Not found' },
+        message: { type: 'string', example: 'Internal Server Error' },
       },
     },
   })
@@ -149,7 +149,7 @@ export class PlantedCropsController {
       type: 'object',
       properties: {
         statusCode: { type: 'number', example: 500 },
-        message: { type: 'string', example: 'Not found' },
+        message: { type: 'string', example: 'Internal Server Error' },
       },
     },
   })

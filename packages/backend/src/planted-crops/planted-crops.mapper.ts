@@ -11,7 +11,7 @@ export class PlantedCropsMapper {
     input: PlantedCrops | Array<PlantedCrops>,
   ): PlantedCrop | Array<PlantedCrop> {
     if (Array.isArray(input)) {
-      return input.map(this.transformToHTTP);
+      return input.map(this.transformToHTTP.bind(this));
     }
 
     return this.transformToHTTP(input);

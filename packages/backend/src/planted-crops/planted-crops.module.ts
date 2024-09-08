@@ -9,6 +9,6 @@ import { PlantedCropsMapper } from './planted-crops.mapper';
   imports: [TypeOrmModule.forFeature([PlantedCrops])],
   controllers: [PlantedCropsController],
   providers: [PlantedCropsService, PlantedCropsMapper],
-  exports: [PlantedCropsService],
+  exports: [PlantedCropsService, PlantedCropsMapper],
 })
 export class PlantedCropsModule {}
