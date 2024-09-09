@@ -39,7 +39,7 @@ export class Producer extends BaseEntity {
   @Column({ nullable: false })
   vegetationArea: number;
 
-  @ManyToMany(() => PlantedCrops)
+  @ManyToMany(() => PlantedCrops, (plantedCrop) => plantedCrop.producers)
   @JoinTable({
     name: 'planted_crops_producers',
     joinColumn: {

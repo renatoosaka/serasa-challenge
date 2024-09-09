@@ -6,6 +6,7 @@ import { configFactory, configValidation } from './config/configuration';
 import { typeorm } from './config/typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlantedCropsModule } from './planted-crops/planted-crops.module';
+import { SummarizersModule } from './summarizers/summarizers.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PlantedCropsModule } from './planted-crops/planted-crops.module';
     }),
     PlantedCropsModule,
     ProducerModule,
+    SummarizersModule,
   ],
   controllers: [AppController],
 })
