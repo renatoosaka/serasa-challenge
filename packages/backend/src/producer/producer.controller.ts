@@ -26,8 +26,8 @@ import { Producer } from './dtos/producer.dto';
 import { ListProducerResponseDTO } from './dtos/response/list.dto';
 import { UpdateProducerRequestDTO } from './dtos/request/update.dto';
 
-@ApiTags('producer')
-@Controller('producer')
+@ApiTags('producers')
+@Controller('producers')
 export class ProducerController {
   constructor(
     private readonly producerService: ProducerService,
