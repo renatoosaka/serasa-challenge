@@ -35,7 +35,7 @@ export function Home() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-col gap-2 md:flex-row">
         <div className="flex items-center justify-between w-full p-2 mb-4 text-sm font-bold bg-gray-100 rounded">
           <span className="text-gray-600 ">
             Total de fazendas em quantidade
@@ -50,7 +50,7 @@ export function Home() {
           <span>{TotalFarmQuery.data?.total}</span>
         </div>
       </div>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {chartAreaQuery.isFetched && chartAreaQuery.data && (
           <PieChart data={chartAreaQuery.data} title="Uso do solo" />
         )}
