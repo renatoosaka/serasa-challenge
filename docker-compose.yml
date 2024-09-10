@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres_serasa
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: serasa
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASS: postgres
+      DATABASE_NAME: serasa
+      DATABASE_SYNC: true
+      PORT: 4000
+    depends_on:
+      - postgres
+    volumes:
+      - ./packages/backend:/app
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    environment:
+      VITE_API_URL: http://localhost:4000/api
+    depends_on:
+      - backend
+    volumes:
+      - ./packages/frontend:/app
+    ports:
+      - "8080:80"
+
+volumes:
+  postgres_data:
