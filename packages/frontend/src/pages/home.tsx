@@ -40,14 +40,14 @@ export function Home() {
           <span className="text-gray-600 ">
             Total de fazendas em quantidade
           </span>
-          <span>{totalAreaQuery.data}</span>
+          <span>{totalAreaQuery.data?.total}</span>
         </div>
 
         <div className="flex items-center justify-between w-full p-2 mb-4 text-sm font-bold bg-gray-100 rounded">
           <span className="text-gray-600">
             Total de fazendas em hectares (área total)
           </span>
-          <span>{TotalFarmQuery.data}</span>
+          <span>{TotalFarmQuery.data?.total}</span>
         </div>
       </div>
       <div className="grid grid-cols-3">
