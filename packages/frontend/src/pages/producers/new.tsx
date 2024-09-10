@@ -8,6 +8,8 @@ import { FormRow } from "../../components/form-row";
 import { FormInputText } from "../../components/form-input-text";
 import { ProducerFormData } from "../../types/producer";
 import { setProducer } from "../../services/producers";
+import { STATES } from "../../utils/states";
+import { FormInputSelect } from "../../components/form-input-select";
 
 export function ProducersNew() {
   const queryClient = useQueryClient();
@@ -49,6 +51,7 @@ export function ProducersNew() {
 
       await mutateAsync({
         ...data,
+        document: data.document.replace(/\D/g, ""),
         area: Number(data.area),
         farmable_area: Number(data.farmable_area),
         vegetation_area: Number(data.vegetation_area),
@@ -68,32 +71,42 @@ export function ProducersNew() {
           <FormRow>
             <FormInputText
               label="Nome"
-              {...register("name", { required: true })}
+              {...register("name", { required: true, minLength: 3 })}
             />
           </FormRow>
           <FormRow>
             <FormInputText
-              label="Document"
-              {...register("document", { required: true })}
+              label="Documento (CPF/CNPJ)"
+              {...register("document", {
+                required: true,
+                minLength: 11,
+                maxLength: 14,
+              })}
             />
           </FormRow>
           <FormRow>
             <FormInputText
               label="Fazenda"
-              {...register("farm", { required: true })}
+              {...register("farm", { required: true, minLength: 3 })}
             />
           </FormRow>
           <FormRow>
             <FormInputText
               label="Cidade"
-              {...register("city", { required: true })}
+              {...register("city", { required: true, minLength: 3 })}
             />
           </FormRow>
           <FormRow>
-            <FormInputText
+            <FormInputSelect
               label="Estado"
               {...register("state", { required: true })}
-            />
+            >
+              {STATES.map((state) => (
+                <option value={state.id} key={state.id}>
+                  {state.label}
+                </option>
+              ))}
+            </FormInputSelect>
           </FormRow>
           <FormRow>
             <FormInputText

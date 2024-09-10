@@ -9,6 +9,8 @@ import { getPlatedCrops } from "../../services/planted-crops";
 import { UpdateProducerFormData } from "../../types/producer";
 import { FormInputText } from "../../components/form-input-text";
 import { FormRow } from "../../components/form-row";
+import { FormInputSelect } from "../../components/form-input-select";
+import { STATES } from "../../utils/states";
 
 export function ProducersShow() {
   const navigate = useNavigate();
@@ -65,7 +67,13 @@ export function ProducersShow() {
     try {
       if (isMutating) return;
 
-      await mutateAsync(data);
+      await mutateAsync({
+        ...data,
+        document: data.document.replace(/\D/g, ""),
+        area: Number(data.area),
+        farmable_area: Number(data.farmable_area),
+        vegetation_area: Number(data.vegetation_area),
+      });
     } catch (error) {
       console.error(error);
     }
@@ -80,32 +88,42 @@ export function ProducersShow() {
           <FormRow>
             <FormInputText
               label="Nome"
-              {...register("name", { required: true })}
+              {...register("name", { required: true, minLength: 3 })}
             />
           </FormRow>
           <FormRow>
             <FormInputText
-              label="Document"
-              {...register("document", { required: true })}
+              label="Documento (CPF/CNPJ)"
+              {...register("document", {
+                required: true,
+                minLength: 11,
+                maxLength: 14,
+              })}
             />
           </FormRow>
           <FormRow>
             <FormInputText
               label="Fazenda"
-              {...register("farm", { required: true })}
+              {...register("farm", { required: true, minLength: 3 })}
             />
           </FormRow>
           <FormRow>
             <FormInputText
               label="Cidade"
-              {...register("city", { required: true })}
+              {...register("city", { required: true, minLength: 3 })}
             />
           </FormRow>
           <FormRow>
-            <FormInputText
+            <FormInputSelect
               label="Estado"
               {...register("state", { required: true })}
-            />
+            >
+              {STATES.map((state) => (
+                <option value={state.id} key={state.id}>
+                  {state.label}
+                </option>
+              ))}
+            </FormInputSelect>
           </FormRow>
           <FormRow>
             <FormInputText

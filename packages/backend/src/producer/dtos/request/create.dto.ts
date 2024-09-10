@@ -48,11 +48,11 @@ export class CreateProducerRequestDTO {
   city: string;
 
   @IsString()
-  @MinLength(3)
+  @MinLength(2)
   @ApiProperty({
     description: 'State',
     type: 'string',
-    example: 'São Paulo',
+    example: 'SP',
   })
   state: string;
 
