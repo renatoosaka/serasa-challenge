@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PlantedCrop } from 'src/planted-crops/dtos/planted-crop.dto';
+import { PlantedCrop } from '../../planted-crops/dtos/planted-crop.dto';
 
 export class Producer {
   @ApiProperty({

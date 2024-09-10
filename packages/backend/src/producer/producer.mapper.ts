@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Producer as ProducerEntity } from './entities/producer.entity';
 import { Producer } from './dtos/producer.dto';
-import { PlantedCropsMapper } from 'src/planted-crops/planted-crops.mapper';
+import { PlantedCropsMapper } from '../planted-crops/planted-crops.mapper';
 
 @Injectable()
 export class ProducerMapper {

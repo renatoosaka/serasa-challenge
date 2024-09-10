@@ -4,7 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ChartsBy, TotalBy } from './dtos/charts.enum';
 import { Producer } from '../producer/entities/producer.entity';
 import { ChartsResponseDTO } from './dtos/response/charts.dto';
-import { PlantedCrops } from 'src/planted-crops/entities/planted-crops.entity';
+import { PlantedCrops } from '../planted-crops/entities/planted-crops.entity';
+import { TotalResponseDTO } from './dtos/response/total.dto';
 
 @Injectable()
 export class SummarizersService {
@@ -56,7 +57,6 @@ export class SummarizersService {
       .createQueryBuilder('producer')
       .select('SUM(producer.farmableArea)', 'total_farmable_area')
       .addSelect('SUM(producer.vegetationArea)', 'total_vegetation_area')
-      .groupBy('producer.state')
       .getRawOne();
 
     return [
@@ -90,20 +90,24 @@ export class SummarizersService {
     }));
   }
 
-  private async totalByFarm(): Promise<number> {
+  private async totalByFarm(): Promise<TotalResponseDTO> {
     const data = await this.producerRepository
       .createQueryBuilder('producer')
       .select('COUNT(producer.id)', 'count')
       .getRawOne();
 
-    return data.count;
+    return {
+      total: data.count,
+    };
   }
-  private async totalByArea(): Promise<number> {
+  private async totalByArea(): Promise<TotalResponseDTO> {
     const data = await this.producerRepository
       .createQueryBuilder('producer')
       .select('SUM(producer.area)', 'total')
       .getRawOne();
 
-    return data.total;
+    return {
+      total: data.total,
+    };
   }
 }

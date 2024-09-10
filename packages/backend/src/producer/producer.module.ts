@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProducerController } from './producer.controller';
 import { ProducerService } from './producer.service';
 import { Producer } from './entities/producer.entity';
-import { PlantedCropsModule } from 'src/planted-crops/planted-crops.module';
 import { ProducerMapper } from './producer.mapper';
+import { PlantedCropsModule } from '../planted-crops/planted-crops.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Producer]), PlantedCropsModule],
